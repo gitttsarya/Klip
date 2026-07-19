@@ -1,0 +1,40 @@
+# ---------- Dependencies ----------
+node_modules/
+
+# ---------- Frontend build output ----------
+dist/
+dist-ssr/
+*.tsbuildinfo
+
+# ---------- Tauri / Rust build artifacts ----------
+src-tauri/target/
+
+# ---------- Debug, log & scratch files ----------
+*.log
+crash.log
+err.txt
+stdout.txt
+stdout2.txt
+stdout_test.txt
+stderr.txt
+stderr2.txt
+stderr_test.txt
+fix.cjs
+fix2.cjs
+smart_fix.js
+test.rs
+1.md
+test_dl/
+
+# ---------- Editor / OS ----------
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------- Env & secrets ----------
+.env
+.env.local
+.env.*.local
+
+src-tauri/binaries/*.exe

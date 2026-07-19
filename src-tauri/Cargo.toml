@@ -1,0 +1,33 @@
+[package]
+name = "klip"
+version = "2.0.0"
+description = "Klip — Video Downloader"
+authors = []
+edition = "2021"
+
+[lib]
+name = "klip_lib"
+crate-type = ["rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-shell = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-store = "2"
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+regex = "1"
+uuid = { version = "1", features = ["v4"] }
+tauri-plugin-clipboard-manager = "2.3.2"
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "s"
+strip = true

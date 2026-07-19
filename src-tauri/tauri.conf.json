@@ -1,0 +1,65 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Klip",
+  "version": "2.0.0",
+  "identifier": "com.klip.app",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Klip",
+        "width": 1105,
+        "height": 908,
+        "minWidth": 1105,
+        "minHeight": 908,
+        "center": true,
+        "decorations": false,
+        "transparent": false,
+        "resizable": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["msi", "nsis"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "externalBin": [
+      "binaries/yt-dlp",
+      "binaries/ffmpeg"
+    ],
+    "windows": {
+      "certificateThumbprint": null,
+      "digestAlgorithm": "sha256",
+      "timestampUrl": "",
+      "wix": {
+        "language": "en-US"
+      },
+      "nsis": {
+        "languages": ["English"],
+        "displayLanguageSelector": false,
+        "installMode": "perMachine"
+      }
+    },
+    "shortDescription": "Video downloader for YouTube, TikTok, Instagram and more",
+    "longDescription": "Klip is a fast, beautiful desktop video downloader powered by yt-dlp. Download from YouTube, TikTok, Instagram, Twitter/X, Facebook, Reddit, Twitch, Vimeo and thousands of other sites."
+  },
+  "plugins": {
+    "shell": {
+      "open": true
+    }
+  }
+}

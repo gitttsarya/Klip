@@ -1,0 +1,940 @@
+/* ─── Klip Design System ─────────────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@property --accent {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #BAFE00;
+}
+@property --text-on-accent {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #121214;
+}
+
+:root {
+  transition: --accent 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+              --text-on-accent 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+              
+  /* Color tokens */
+  --bg-base:     #121214;
+  --bg-elevated: #1A1A1D;
+  --bg-card:     #1E1E22;
+  --bg-surface:  #252529;
+  --bg-hover:    #2C2C31;
+
+  --accent:      #BAFE00;
+  --accent-dim:  color-mix(in srgb, var(--accent) 12%, transparent);
+  --accent-glow: color-mix(in srgb, var(--accent) 35%, transparent);
+
+  --text-primary: #F2F3F5;
+  --text-muted:   #8B92A3;
+  --text-dim:     #4A5060;
+  --text-on-accent: #121214;
+
+  --border:      #2A2E38;
+  --border-focus: #BAFE00;
+
+  --error:       #EF4444;
+  --error-dim:   rgba(239, 68, 68, 0.12);
+  --warning:     #F59E0B;
+  --success:     #22C55E;
+  --success-dim: rgba(34, 197, 94, 0.12);
+
+  /* Platform brand colors (as tints) */
+  --yt-color:   #FF0000;
+  --tt-color:   #00F2EA;
+  --ig-color:   #E1306C;
+  --tw-color:   #1DA1F2;
+  --fb-color:   #1877F2;
+  --rd-color:   #FF4500;
+  --tv-color:   #9146FF;
+  --vm-color:   #1AB7EA;
+
+  /* Spacing */
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
+  --radius-xl:  20px;
+
+  /* Shadows */
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-accent: 0 0 24px var(--accent-glow);
+
+  /* Typography */
+  --font: 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg-base);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+}
+
+/* ─── Scrollbars ─────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-dim);
+}
+
+/* ─── Selection ──────────────────────────────────────────────────────────── */
+::selection {
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
+/* ─── Focus ring ─────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ─── Base elements ──────────────────────────────────────────────────────── */
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, textarea {
+  font-family: inherit;
+}
+
+/* ─── Layout helpers ─────────────────────────────────────────────────────── */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-1 { flex: 1; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: 8px; }
+.gap-3 { gap: 12px; }
+.gap-4 { gap: 16px; }
+.w-full { width: 100%; }
+.overflow-auto { overflow: auto; }
+.overflow-hidden { overflow: hidden; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── Typography scale ───────────────────────────────────────────────────── */
+.text-xs   { font-size: 11px; line-height: 1.4; }
+.text-sm   { font-size: 12px; line-height: 1.5; }
+.text-base { font-size: 14px; line-height: 1.5; }
+.text-lg   { font-size: 16px; line-height: 1.4; }
+.text-xl   { font-size: 18px; line-height: 1.3; }
+.text-2xl  { font-size: 22px; line-height: 1.2; }
+.text-3xl  { font-size: 28px; line-height: 1.1; }
+
+.font-medium  { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold    { font-weight: 700; }
+.font-extrabold { font-weight: 800; }
+
+.text-primary { color: var(--text-primary); }
+.text-muted   { color: var(--text-muted); }
+.text-dim     { color: var(--text-dim); }
+.text-accent  { color: var(--accent); }
+.text-error   { color: var(--error); }
+.text-success { color: var(--success); }
+
+/* ─── App shell ──────────────────────────────────────────────────────────── */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--bg-base);
+  overflow: hidden;
+}
+
+.app-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+
+.content-column {
+  flex: 1;
+  width: 100%;
+  padding: 32px;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+  scrollbar-width: none;
+}
+
+.content-column::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Custom Title Bar ──────────────────────────────────────────────────── */
+.title-bar {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  flex-shrink: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.title-bar-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+}
+
+.title-bar-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: -0.2px;
+}
+
+.title-bar-controls {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+}
+
+.title-bar-btn {
+  width: 46px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: background 100ms ease, color 100ms ease;
+  border-radius: 0;
+}
+
+.title-bar-btn:hover {
+  color: var(--text-primary);
+}
+
+.title-bar-btn-close:hover {
+  color: #fff !important;
+}
+
+/* ─── Top Nav ────────────────────────────────────────────────────────────── */
+.top-nav {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px 0 0;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  z-index: 20;
+  position: sticky;
+  top: 0;
+  /* Needed so the absolutely-centered nav aligns within the header */
+  position: relative;
+}
+
+
+
+.top-nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topnav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 150ms ease, background 150ms ease, transform 150ms ease;
+  z-index: 1;
+}
+
+.topnav-item:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.03);
+  transform: translateY(-1px);
+}
+
+.topnav-item.active {
+  color: var(--text-on-accent);
+}
+
+.topnav-pill {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  border-radius: var(--radius-md);
+  z-index: -1;
+}
+
+
+
+
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ─── Premium Cards ──────────────────────────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+}
+
+
+.noise-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.section-divider {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  margin: 24px 0;
+}
+
+/* ─── Input ──────────────────────────────────────────────────────────────── */
+.input {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  font-size: 14px;
+  font-family: var(--font);
+  color: var(--text-primary);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--text-dim);
+}
+
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.input.error {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px var(--error-dim);
+}
+
+textarea.input {
+  resize: vertical;
+  min-height: 72px;
+  max-height: 160px;
+}
+
+/* ─── Buttons ────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--radius-md);
+  font-family: var(--font);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 150ms ease, opacity 150ms ease;
+  border: none;
+  outline: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--text-on-accent);
+  font-size: 14px;
+  padding: 12px 20px;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+.btn-ghost {
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  font-size: 13px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.btn-icon {
+  background: transparent;
+  color: var(--text-dim);
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.btn-icon:hover {
+  background: var(--bg-surface);
+  color: var(--text-muted);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ─── Download button (morphable) ────────────────────────────────────────── */
+.download-btn-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+
+/* ─── Quality selector ───────────────────────────────────────────────────── */
+.quality-selector {
+  display: flex;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  gap: 2px;
+  position: relative;
+}
+
+.quality-option {
+  position: relative;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 1;
+  transition: color 150ms ease;
+  white-space: nowrap;
+}
+
+.quality-option.active {
+  color: var(--text-on-accent);
+}
+
+.quality-indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  background: var(--accent);
+  border-radius: 8px;
+  z-index: 0;
+}
+
+/* ─── Download list ──────────────────────────────────────────────────────── */
+.download-list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 4px;
+}
+
+/* ─── Download item ──────────────────────────────────────────────────────── */
+.download-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+.download-item:hover {
+  border-color: var(--bg-hover);
+}
+
+.download-item-thumb {
+  width: 64px;
+  height: 40px;
+  border-radius: 6px;
+  background: var(--bg-surface);
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.download-item-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.download-item-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.download-item-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.download-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.platform-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: var(--bg-surface);
+}
+
+.download-progress-bar-wrap {
+  width: 100%;
+  height: 4px;
+  background: var(--bg-surface);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.download-progress-bar {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--accent);
+  transform-origin: left;
+}
+
+.download-progress-bar.merging {
+  background: var(--warning);
+  animation: shimmer 1.2s ease-in-out infinite;
+}
+
+.download-progress-bar.done {
+  background: var(--success);
+}
+
+.download-progress-bar.error {
+  background: var(--error);
+}
+
+.download-status-text {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.download-item-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.item-success-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 60%, var(--success-dim));
+  pointer-events: none;
+}
+
+/* ─── Empty state ────────────────────────────────────────────────────────── */
+.empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 40px;
+  text-align: center;
+}
+
+.empty-icon-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* ─── Platform chips ─────────────────────────────────────────────────────── */
+.platform-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.platform-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* ─── Toast ──────────────────────────────────────────────────────────────── */
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.toast {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow-elevated);
+  pointer-events: all;
+  min-width: 280px;
+  max-width: 360px;
+}
+
+.toast.toast-success { border-color: var(--success); }
+.toast.toast-error   { border-color: var(--error); }
+.toast.toast-warning { border-color: var(--warning); }
+
+.toast-message {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+/* ─── Settings ───────────────────────────────────────────────────────────── */
+.settings-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.settings-row:last-child {
+  border-bottom: none;
+}
+
+.settings-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #C4C8D4;
+  background: transparent;
+  cursor: pointer;
+  transition: all 150ms ease;
+  z-index: 1;
+}
+
+.settings-pill.active {
+  color: var(--text-on-accent);
+}
+
+.settings-pill-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.settings-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.settings-description {
+  font-size: 12px;
+  color: #C4C8D4;
+}
+
+/* ─── About ──────────────────────────────────────────────────────────────── */
+.about-card {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+}
+
+.about-logo {
+  width: 80px;
+  height: 80px;
+  background: transparent;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-info-grid {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.about-info-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+}
+
+.about-info-key {
+  width: 100px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.about-info-val {
+  font-size: 13px;
+  color: var(--text-primary);
+  text-align: left;
+}
+
+/* ─── Shimmer skeleton ───────────────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-surface) 25%,
+    var(--bg-hover) 50%,
+    var(--bg-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ─── Folder input row ───────────────────────────────────────────────────── */
+.folder-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.folder-input-row .input {
+  flex: 1;
+}
+
+/* ─── Batch textarea section ─────────────────────────────────────────────── */
+.batch-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.batch-section-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-dim);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: color 150ms;
+}
+
+.batch-section-toggle:hover {
+  color: var(--text-muted);
+}
+
+.batch-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ─── Number counter ─────────────────────────────────────────────────────── */
+.counter {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* ─── Input zone (URL area) ──────────────────────────────────────────────── */
+.input-zone {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.url-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.url-input-row .input {
+  flex: 1;
+}
+
+/* ─── Section headers ────────────────────────────────────────────────────── */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.section-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ─── Concurrent limit ───────────────────────────────────────────────────── */
+.limit-selector {
+  display: flex;
+  gap: 6px;
+}
+
+.limit-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 150ms;
+}
+
+.limit-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--text-on-accent);
+}
+
+.limit-btn:hover:not(.active) {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
